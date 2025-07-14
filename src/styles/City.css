@@ -1,0 +1,37 @@
+.city-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.city-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.city-item span {
+  cursor: pointer;
+  font-weight: 500;
+  flex: 1;
+}
+
+.city-item button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.2s ease;
+}
+
+.city-item button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

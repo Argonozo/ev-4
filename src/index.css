@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body, #root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+  /* Un fondo llamativo con un degradado vibrante */
+}
+

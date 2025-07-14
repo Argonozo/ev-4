@@ -1,0 +1,1 @@
+Refactoriza la lógica de selección de ciudad en el componente App y actualiza el manejo del estado de la ciudad seleccionada. Se ajustan estilos en CityList.css para mejorar la presentación de la barra lateral y se eliminan estados innecesarios en CitySearch.jsx.

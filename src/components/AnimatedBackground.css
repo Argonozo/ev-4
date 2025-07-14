@@ -1,0 +1,64 @@
+:root {
+  --ball-size: 42;
+  --impect-radius: 192;
+}
+
+.baseLight {
+  position: fixed;
+  inset: calc(50% - (var(--ball-size) * 6px));
+  background-image: radial-gradient(closest-side, #fff, 2%, transparent);
+  transform: translate(calc(var(--mx, 0px) * 1px), calc(var(--my, 0px) * 1px));
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shadows, .balls {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: unset;
+  bottom: unset;
+  transform: translate(calc(var(--mx, 0px) * 0.3), calc(var(--my, 0px) * 0.3));
+  z-index: 0;
+  pointer-events: none;
+}
+.shadow, .ball {
+  position: absolute;
+}
+.shadow {
+  left: calc(var(--x) * var(--ball-size) * 1px);
+  top: calc((var(--y) - 0.5) * var(--ball-size) * 1px);
+  width: calc(var(--ball-size) * 2px);
+  height: calc(var(--ball-size) * 1px);
+  transform-origin: left;
+  background-image: linear-gradient(to right, #000, transparent);
+  opacity: var(--dist-factor, 0);
+  transform:
+    rotate(var(--angle))
+    translate(var(--_translate))
+    perspective(calc(var(--ball-size) * 2px))
+    rotateY(calc(var(--dist-factor) * -50deg - 20deg));
+}
+.ball {
+  --x: calc(cos(var(--i) / 6 * 3.1416) * 3);
+  --y: calc(sin(var(--i) / 6 * 3.1416) * 3);
+  --hue: calc((var(--x) + var(--y)) * 4);
+  --dx: calc(var(--x) * var(--ball-size) - var(--mx, -9999));
+  --dy: calc(var(--y) * var(--ball-size) - var(--my, -9999));
+  --dist: calc(sqrt(var(--dx) * var(--dx) + var(--dy) * var(--dy)));
+  --dist-factor: calc((var(--impect-radius) - min(var(--dist), var(--impect-radius))) / var(--impect-radius));
+  --angle: atan2(var(--dy), var(--dx));
+  --_translate: calc(var(--dist-factor) * var(--ball-size) * 1px);
+
+  left: calc((var(--x) - 0.5) * var(--ball-size) * 1px);
+  top: calc((var(--y) - 0.5) * var(--ball-size) * 1px);
+  width: calc(var(--ball-size) * 1px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: hsl(var(--hue), 100%, 50%);
+  background-image:
+    radial-gradient(circle at calc(var(--dist-factor) * 100% - 100%) 50%, #fff, 25%, transparent),
+    radial-gradient(circle at calc(var(--dist-factor) * -100% + 50%) 50%, transparent, #000a 100%);
+  background-repeat: no-repeat;
+  transform: rotate(var(--angle)) translate(var(--_translate));
+} 
