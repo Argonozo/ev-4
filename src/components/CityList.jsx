@@ -21,8 +21,6 @@ import { FaRegListAlt } from 'react-icons/fa'; // Importa un icono de React para
  */
 const CityList = ({ cities, onSelectCity, onDeleteCity, selectedCityId, collapsed, setCollapsed }) => {
   // Si no hay ciudades o la lista está vacía, no renderiza nada.
-  if (!cities || cities.length === 0) return null;
-
   // Si la barra lateral está colapsada, renderiza un botón para expandirla.
   if (collapsed) {
     return (

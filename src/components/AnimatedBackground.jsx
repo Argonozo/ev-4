@@ -27,10 +27,8 @@ export default function AnimatedBackground() {
      * @param {MouseEvent} e - El evento del ratón.
      */
     const handler = (e) => {
-      // Calcula la posición X del ratón relativa al centro de la ventana.
-      document.body.style.setProperty('--mx', e.clientX - (window.innerWidth / 2));
-      // Calcula la posición Y del ratón relativa al centro de la ventana.
-      document.body.style.setProperty('--my', e.clientY - (window.innerHeight / 2));
+      document.body.style.setProperty('--mx', e.clientX);
+      document.body.style.setProperty('--my', e.clientY);
     };
 
     // Añade el event listener para el movimiento del ratón al objeto window.
