@@ -195,6 +195,7 @@
   }
   .city-navbar.collapsed {
     left: -100vw;
+
   }
   .navbar-toggle {
     right: -44px;
@@ -243,7 +244,7 @@
     justify-content: flex-start;
   }
   .sidebar-tab {
-    position: static !important;
+    
     width: 100vw !important;
     min-width: 0 !important;
     max-width: 100vw !important;
@@ -252,8 +253,9 @@
     left: 0 !important;
     top: 0 !important;
     z-index: 102 !important;
-    display: flex !important;
-    align-items: center;
+
+    
+    align-items: column;
     justify-content: center;
     font-size: 1.1rem;
     font-weight: 600;
