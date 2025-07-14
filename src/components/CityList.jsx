@@ -20,10 +20,6 @@ import { FaRegListAlt } from 'react-icons/fa'; // Importa un icono de React para
  * @returns {JSX.Element|null} Un elemento JSX que representa la lista de ciudades o null si no hay ciudades.
  */
 const CityList = ({ cities, onSelectCity, onDeleteCity, selectedCityId, collapsed, setCollapsed }) => {
-<<<<<<< HEAD
-  // Si no hay ciudades o la lista está vacía, no renderiza nada.
-=======
->>>>>>> a7af4f0a1eb4610c6875a56678f3d5860f90ecaf
   // Si la barra lateral está colapsada, renderiza un botón para expandirla.
   // Este botón siempre debe ser visible para permitir al usuario abrir la lista de ciudades,
   // incluso si no hay ciudades guardadas.
