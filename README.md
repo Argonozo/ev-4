@@ -43,7 +43,7 @@ Para ejecutar este proyecto en tu máquina local, sigue estos pasos:
 
 1.  **Clonar el Repositorio:**
     ```bash
-    git clone <"https://github.com/Argonozo/ev-4.git">
+    git clone https://github.com/Argonozo/ev-4.git
     cd weather-app
     ```
 
