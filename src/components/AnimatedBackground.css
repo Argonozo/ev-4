@@ -1,13 +1,16 @@
 :root {
   --ball-size: 42;
-  --impect-radius: 192;
+  --impect-radius: 300; /* Increased impact radius */
 }
 
 .baseLight {
-  position: fixed;
-  inset: calc(50% - (var(--ball-size) * 6px));
+  position: fixed; /* Changed back to fixed */
+  left: var(--mouse-x); /* Use raw mouse X */
+  top: var(--mouse-y); /* Use raw mouse Y */
+  transform: translate(-50%, -50%); /* Center the light on the cursor */
+  width: calc(var(--ball-size) * 12px); /* Added width */
+  height: calc(var(--ball-size) * 12px); /* Added height */
   background-image: radial-gradient(closest-side, #fff, 2%, transparent);
-  transform: translate(calc(var(--mx, 0px) * 1px), calc(var(--my, 0px) * 1px));
   z-index: 0;
   pointer-events: none;
 }
@@ -18,7 +21,7 @@
   right: 0;
   left: unset;
   bottom: unset;
-  transform: translate(calc(var(--mx, 0px) * 0.3), calc(var(--my, 0px) * 0.3));
+  /* Removed transform to stop container movement */
   z-index: 0;
   pointer-events: none;
 }
@@ -43,12 +46,12 @@
   --x: calc(cos(var(--i) / 6 * 3.1416) * 3);
   --y: calc(sin(var(--i) / 6 * 3.1416) * 3);
   --hue: calc((var(--x) + var(--y)) * 4);
-  --dx: calc(var(--x) * var(--ball-size) - var(--mx, -9999));
-  --dy: calc(var(--y) * var(--ball-size) - var(--my, -9999));
+  --dx: calc(var(--x) * var(--ball-size) - var(--offset-x, -9999)); /* Use offset-x */
+  --dy: calc(var(--y) * var(--ball-size) - var(--offset-y, -9999)); /* Use offset-y */
   --dist: calc(sqrt(var(--dx) * var(--dx) + var(--dy) * var(--dy)));
   --dist-factor: calc((var(--impect-radius) - min(var(--dist), var(--impect-radius))) / var(--impect-radius));
   --angle: atan2(var(--dy), var(--dx));
-  --_translate: calc(var(--dist-factor) * var(--ball-size) * 1px);
+  --_translate: calc(var(--dist-factor) * var(--ball-size) * 2px); /* Increased translation multiplier */
 
   left: calc((var(--x) - 0.5) * var(--ball-size) * 1px);
   top: calc((var(--y) - 0.5) * var(--ball-size) * 1px);
@@ -61,4 +64,4 @@
     radial-gradient(circle at calc(var(--dist-factor) * -100% + 50%) 50%, transparent, #000a 100%);
   background-repeat: no-repeat;
   transform: rotate(var(--angle)) translate(var(--_translate));
-} 
+}

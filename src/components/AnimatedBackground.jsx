@@ -2,7 +2,7 @@
 // Este componente crea un fondo animado con efectos visuales de bolas y sombras
 // que reaccionan al movimiento del ratón.
 
-import { useEffect } from "react"; // Importa useEffect para manejar efectos secundarios en componentes funcionales.
+import { useEffect, useRef } from "react"; // Importa useEffect y useRef para manejar efectos secundarios y referencias a elementos del DOM.
 import "./AnimatedBackground.css"; // Importa los estilos CSS para este componente.
 
 // Crea un arreglo de 12 elementos para representar las "bolas" animadas.
@@ -17,20 +17,30 @@ const shadows = Array.from({ length: 12 });
  * @returns {JSX.Element} El fondo animado.
  */
 export default function AnimatedBackground() {
+  // Crea una referencia para el contenedor de las bolas.
+  const ballsRef = useRef(null);
+
   // useEffect se utiliza para añadir y limpiar un event listener del ratón.
-  // Este efecto se ejecuta una sola vez al montar el componente (debido al arreglo de dependencias vacío []).
+  // Este efecto se ejecuta una sola vez al montar el componente.
   useEffect(() => {
     /**
      * Manejador de eventos para el movimiento del ratón.
      * Actualiza las propiedades CSS personalizadas '--mx' y '--my' en el body del documento,
-     * lo que permite que los elementos animados reaccionen a la posición del ratón.
+     * lo que permite que los elementos animados reaccionen a la posición del ratón
+     * en relación con el contenedor de las bolas.
      * @param {MouseEvent} e - El evento del ratón.
      */
     const handler = (e) => {
-      // Calcula la posición X del ratón relativa al centro de la ventana.
-      document.body.style.setProperty('--mx', e.clientX - (window.innerWidth / 2));
-      // Calcula la posición Y del ratón relativa al centro de la ventana.
-      document.body.style.setProperty('--my', e.clientY - (window.innerHeight / 2));
+      if (ballsRef.current) {
+        const { left, top, width, height } = ballsRef.current.getBoundingClientRect();
+        // Set raw mouse coordinates for the light source
+        document.body.style.setProperty('--mouse-x', e.clientX + 'px');
+        document.body.style.setProperty('--mouse-y', e.clientY + 'px');
+
+        // Calculate position relative to the center of the balls container for ball animation
+        document.body.style.setProperty('--offset-x', (e.clientX - (left + width / 2)) + 'px');
+        document.body.style.setProperty('--offset-y', (e.clientY - (top + height / 2)) + 'px');
+      }
     };
 
     // Añade el event listener para el movimiento del ratón al objeto window.
@@ -55,7 +65,7 @@ export default function AnimatedBackground() {
         ))}
       </div>
       {/* Contenedor para las bolas animadas. */}
-      <div className="balls">
+      <div className="balls" ref={ballsRef}>
         {/* Mapea el arreglo 'balls' para renderizar múltiples elementos de bola. */}
         {balls.map((_, i) => (
           // Cada bola tiene una propiedad CSS personalizada '--i' para diferenciar su animación.
