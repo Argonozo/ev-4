@@ -1,16 +1,20 @@
 :root {
   --ball-size: 42;
-  --impect-radius: 300; /* Increased impact radius */
+  --impect-radius: 320;
+  --mouse-x: 0px;
+  --mouse-y: 0px;
+  --offset-x: 0px;
+  --offset-y: 0px;
 }
 
 .baseLight {
-  position: fixed; /* Changed back to fixed */
-  left: var(--mouse-x); /* Use raw mouse X */
-  top: var(--mouse-y); /* Use raw mouse Y */
-  transform: translate(-50%, -50%); /* Center the light on the cursor */
-  width: calc(var(--ball-size) * 12px); /* Added width */
-  height: calc(var(--ball-size) * 12px); /* Added height */
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: 120px;
   background-image: radial-gradient(closest-side, #fff, 2%, transparent);
+  transform: translate(calc(var(--mouse-x) - 60px), calc(var(--mouse-y) - 60px));
   z-index: 0;
   pointer-events: none;
 }
@@ -27,10 +31,12 @@
 }
 .shadow, .ball {
   position: absolute;
+  --dx: calc(var(--x) * var(--ball-size) - var(--mouse-x));
+  --dy: calc(var(--y) * var(--ball-size) - var(--mouse-y));
 }
 .shadow {
   left: calc(var(--x) * var(--ball-size) * 1px);
-  top: calc((var(--y) - 0.5) * var(--ball-size) * 1px);
+  top: calc(var(--y) * var(--ball-size) * 1px);
   width: calc(var(--ball-size) * 2px);
   height: calc(var(--ball-size) * 1px);
   transform-origin: left;
@@ -46,15 +52,13 @@
   --x: calc(cos(var(--i) / 6 * 3.1416) * 3);
   --y: calc(sin(var(--i) / 6 * 3.1416) * 3);
   --hue: calc((var(--x) + var(--y)) * 4);
-  --dx: calc(var(--x) * var(--ball-size) - var(--offset-x, -9999)); /* Use offset-x */
-  --dy: calc(var(--y) * var(--ball-size) - var(--offset-y, -9999)); /* Use offset-y */
   --dist: calc(sqrt(var(--dx) * var(--dx) + var(--dy) * var(--dy)));
   --dist-factor: calc((var(--impect-radius) - min(var(--dist), var(--impect-radius))) / var(--impect-radius));
   --angle: atan2(var(--dy), var(--dx));
   --_translate: calc(var(--dist-factor) * var(--ball-size) * 2px); /* Increased translation multiplier */
 
-  left: calc((var(--x) - 0.5) * var(--ball-size) * 1px);
-  top: calc((var(--y) - 0.5) * var(--ball-size) * 1px);
+  left: calc(var(--x) * var(--ball-size) * 1px);
+  top: calc(var(--y) * var(--ball-size) * 1px);
   width: calc(var(--ball-size) * 1px);
   aspect-ratio: 1;
   border-radius: 50%;
@@ -64,4 +68,18 @@
     radial-gradient(circle at calc(var(--dist-factor) * -100% + 50%) 50%, transparent, #000a 100%);
   background-repeat: no-repeat;
   transform: rotate(var(--angle)) translate(var(--_translate));
+}
+.ball::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 2px;
+  background: #fff;
+  border-radius: 1px;
+  transform: translate(-50%, -50%) rotate(var(--angle));
+  transform-origin: left center;
+  box-shadow: 0 0 4px #fff8;
 }
